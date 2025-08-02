@@ -4,8 +4,9 @@
  
 # Rewrite the program using a while loop.
 # Also modify it to find the sum of positive odd numbers instead. Print all even numbers as well as the total sum.
- 
 def sumOfNumbers():
+    arr = numpy.array([1, 2, 3, 4, 5])
+    print(arr)
     number = input("input value(PLEASE PUT POSITIVE INTENGER NUMBER)")
     n = int(number)
     if n < 1:
