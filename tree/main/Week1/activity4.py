@@ -15,7 +15,7 @@ rainfall = [0.0, 5.2, 3.1, 0.0, 12.4, 0.0, 7.5]
 arr = np.array(rainfall)
 
 print("NumPy array: ", arr)
-print("total rainfall: ", np.sum(rainfall))
+print("total rainfall: ", round(np.sum(rainfall), 1))
 print("average rainfall: ", np.mean(rainfall))
 print("no rain days: ", np.size(np.where(arr == 0.0)))
 print("rainfall was more than 5 mm: ", np.where(arr > 5))
