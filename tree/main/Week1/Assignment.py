@@ -5,7 +5,7 @@
 # Rewrite the program using a while loop.
 # Also modify it to find the sum of positive odd numbers instead. Print all even numbers as well as the total sum.
  
-def sumOfEvenNumbers():
+def sumOfNumbers():
     number = input("input value(PLEASE PUT POSITIVE INTENGER NUMBER)")
     n = int(number)
     if n < 1:
@@ -14,15 +14,24 @@ def sumOfEvenNumbers():
         result = 0
         num = 1
         while num < n + 1:
-            if num % 2 == 0:
+            # sum of odd number
+            if num % 2 == 1: 
                 result += num
+            else:
+                print(num)
+            # sum of even numbers
+            # if num % 2 == 0:
+            #     result += num
+            #     print(num)
             num += 1
+
         # for num in range(1, n + 1):
         #     if num % 2 == 0:
         #         result += num
+
         return result
 
 
 if __name__ == "__main__":
-    answer = sumOfEvenNumbers()
+    answer = sumOfNumbers()
     print("\n Final result:", answer)
