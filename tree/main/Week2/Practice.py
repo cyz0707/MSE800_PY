@@ -1,5 +1,5 @@
 import random
-WORDS = ("spicy", "sweet", "salt", "bitter", "sour",  "umami")
+WORDS = ("spicy", "sweat", "salt", "best", "sour", "python")
 LIFE = 3
 
 def generateRandomWord():
