@@ -19,6 +19,10 @@ length = StringManipulator.string_len(name)
 
 upper = StringManipulator.convert_uppercase(name)
 
-print(result)
-print("name length: ", length)
-print("convert_uppercase: ", upper)
+def main():
+    print(result)
+    print("name length: ", length)
+    print("convert_uppercase: ", upper)
+
+if __name__ == "__main__":
+    main()
