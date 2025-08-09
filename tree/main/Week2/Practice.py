@@ -1,5 +1,6 @@
 import random
 WORDS = ("spicy", "sweet", "salt", "bitter", "sour",  "umami")
+LIFE = 3
 
 def generateRandomWord():
     return random.choice(WORDS)
@@ -10,36 +11,38 @@ def getAnswer(word):
         answer.append(letter)
     return answer
 
-def generateGuessBoard(puzzle):
-    print(puzzle)
-
-def guessWord(word, answer, result): 
+def guessWord(word, answer, blanks, life): 
     guess = input("please input a letter: ")
     if len(guess) != 1 :
-        guessWord(word, answer, result)
+        guessWord(word, answer, blanks, life)
     else:
-        trying = result
+        trying = blanks
         if guess in word:
             print(answer.index(guess))
             trying[answer.index(guess)] = guess
         else:
-            print("Lose a life")
+            life -= 1
+            print("Lose a life!")
+            if life == 0:
+                print("You lose!")
+                return
 
+        # check answer
         if (trying == answer):
             print("you win!")
             return
         else:
           print(trying)
-          guessWord(word, answer, trying)
+          guessWord(word, answer, trying, life)
 
-def practice():
+def play():
     word = generateRandomWord()
     answer = getAnswer(word)
-    result = []
+    blanks = []
     for letter in word:
-        result.append("")
-    guessWord(word, answer, result)
+        blanks.append("")
+    guessWord(word, answer, blanks, LIFE)
 
 if __name__ == "__main__":
-    answer = practice()
+    answer = play()
     print("\n Final result:", answer)
