@@ -6,18 +6,18 @@ class StringManipulator:
         return self.text.find(char)
     
     def string_len(self):
-        return len(self)
+        return len(self.text)
     
     def convert_uppercase(self):
-        return self.upper()
+        return self.text.upper()
 
 name = StringManipulator("example")
 
 result = StringManipulator.find_character(name, 'a')
 
-length = StringManipulator.string_len('aaa')
+length = StringManipulator.string_len(name)
 
-upper = StringManipulator.convert_uppercase('aaa')
+upper = StringManipulator.convert_uppercase(name)
 
 print(result)
 print("name length: ", length)
