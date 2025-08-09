@@ -11,8 +11,8 @@ class WordsCount:
 def main():
     sentence = input("please input a sentence: ")
     words = WordsCount(sentence)
-    print(WordsCount.count(words))
+    return WordsCount.count(words)
 
 if __name__ == "__main__":
     result = main()
-    print("\n Final result:", result)
+    print("\n Words Count:", result)
