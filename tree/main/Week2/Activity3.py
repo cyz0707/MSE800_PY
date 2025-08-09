@@ -1,17 +1,17 @@
 class StringManipulator:
-    def __init__(self, text):
-        self.text = text
+    # def __init__(text):
+    #     self.text = text
 
-    def find_character(self, char):
-        return self.text.find(char)
+    def find_character(text, char):
+        return text.find(char)
     
-    def string_len(self):
-        return len(self.text)
+    def string_len(text):
+        return len(text)
     
-    def convert_uppercase(self):
-        return self.text.upper()
+    def convert_uppercase(text):
+        return text.upper()
 
-name = StringManipulator("example")
+name = "example"
 
 result = StringManipulator.find_character(name, 'a')
 
