@@ -5,7 +5,7 @@
 # Call the display_info() method to show each employee’s details.
 # Call the give_raise() method to increase an employee’s salary and display the updated amount.
 
-class Staff:
+class Employee:
     def __init__(self, name, salary, job_title):
         self.name = name
         self.salary = salary
@@ -19,11 +19,11 @@ class Staff:
         return f"name: {self.name}\nsalary: {self.salary}\njob title: {self.job_title}\n"
 
 def main():
-    employee1 = Staff("Mark", 2000, "manager") 
-    employee2 = Staff("Rose", 1000, "waitress") 
+    employee1 = Employee("Mark", 2000, "manager") 
+    employee2 = Employee("Rose", 1000, "waitress") 
 
-    print(Staff.display_info(employee1))
-    print(Staff.display_info(employee2))
+    print(Employee.display_info(employee1))
+    print(Employee.display_info(employee2))
 
     raise_salary = input("increase Mark's salary: ")
     print(employee1.give_raise(raise_salary))
