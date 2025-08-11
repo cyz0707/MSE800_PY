@@ -15,7 +15,7 @@ class Employee:
         return f"name: {self.name}\nsalary: {self.salary}\njob title: {self.job_title}\n"
     
     def give_raise(self, salary):
-        self.salary = salary
+        self.salary += salary
         return f"name: {self.name}\nsalary: {self.salary}\njob title: {self.job_title}\n"
 
 def main():
@@ -25,8 +25,11 @@ def main():
     print(Employee.display_info(employee1))
     print(Employee.display_info(employee2))
 
-    raise_salary = input("increase Mark's salary: ")
-    print(employee1.give_raise(raise_salary))
+    prompt = "Increase Mark's salary: "
+    raise_salary = input(prompt)
+    while not raise_salary.isnumeric():
+        raise_salary = input(prompt)
+    print(employee1.give_raise(int(raise_salary)))
 
 if __name__ == "__main__":
     main()
