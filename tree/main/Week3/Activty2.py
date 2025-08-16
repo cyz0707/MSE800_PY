@@ -5,22 +5,17 @@ class FileProcessing:
     def readFile(self):
         data = open(self.url)
         return data.readlines()
-    
-    def writeFile(self):
-        with open(self.url, 'w') as file:
-            file.write('hello world! line 12 3')
 
     def countWords(self):
         lines = FileProcessing.readFile(self)
+        wordNum = 0
         for line in lines:
-            print(line)
-
+            wordNum += len(line.split())
+        print(wordNum)    
 
 def main():
     file = FileProcessing('demo.txt')
     FileProcessing.countWords(file)
 
-
 if __name__ == "__main__":
     main()
-
