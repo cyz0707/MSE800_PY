@@ -3,15 +3,14 @@ class FileProcessing:
         self.url = url
     
     def readFile(self):
-        data = open(self.url)
-        return data.readlines()
+        file = open(self.url)
+        data = file.read()
+        file.close()
+        return data
 
     def countWords(self):
-        lines = FileProcessing.readFile(self)
-        wordNum = 0
-        for line in lines:
-            wordNum += len(line.split())
-        print(wordNum)    
+        data = FileProcessing.readFile(self)
+        print(len(data.split()))
 
 def main():
     file = FileProcessing('demo.txt')
