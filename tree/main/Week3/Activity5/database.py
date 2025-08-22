@@ -24,3 +24,36 @@ def create_table():
         
     conn.commit()
     conn.close()
+
+ # def create_table():
+#     conn = create_connection()
+#     cursor = conn.cursor()
+#     cursor.execute('''
+#         CREATE TABLE IF NOT EXISTS Students (
+#             id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             name TEXT NOT NULL,
+#             address TEXT NOT NULL,
+#             class_id INTEGER NOT NULL
+#         )
+#     ''')
+#     cursor.execute('''
+#         CREATE TABLE IF NOT EXISTS Class (
+#             class_id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             class_name TEXT NOT NULL
+#         )
+#     ''')
+#     cursor.execute('''
+#         CREATE TABLE IF NOT EXISTS Subjects (
+#             subject_id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             subject_name TEXT NOT NULL,
+#             class_id INTEGER NOT NULL
+#         )
+#     ''')
+#     cursor.execute('''
+#         CREATE TABLE IF NOT EXISTS Lecturer (
+#             lecturer_id INTEGER PRIMARY KEY AUTOINCREMENT,
+#             lecturer_name TEXT NOT NULL,
+#             class_id INTEGER NOT NULL,
+#             subject_id INTEGER NOT NULL
+#         )
+#     ''')
