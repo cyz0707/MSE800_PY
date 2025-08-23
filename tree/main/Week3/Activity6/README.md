@@ -27,3 +27,6 @@ Use cases are designed as below:
 4. Quit teaching a course
 5. View students from a course
 6. View courses
+
+
+![usecases](/Users/caoyongzhou/workspace/MSE800_PY/tree/main/Week3/Activity6/usecases.png "usecases")
