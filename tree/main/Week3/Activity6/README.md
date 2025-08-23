@@ -2,6 +2,7 @@
 ## actors and use cases
 
 This is a YB college system for students and teachers to manage classes and subjects.
+
 There are 3 actors using this system: Admin, teacher and student
 
 ### Admin:
