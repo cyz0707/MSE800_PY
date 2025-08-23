@@ -29,4 +29,4 @@ Use cases are designed as below:
 6. View courses
 
 
-![usecases](/usecases.png "usecases")
+![usecases](/tree/main/Week3/Activity6/usecases.png "usecases")
