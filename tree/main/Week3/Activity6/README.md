@@ -29,4 +29,4 @@ Use cases are designed as below:
 6. View courses
 
 
-![usecases](/Users/caoyongzhou/workspace/MSE800_PY/tree/main/Week3/Activity6/usecases.png "usecases")
+![usecases](/usecases.png "usecases")
