@@ -26,7 +26,7 @@ s = Student('Ali', 20)
 info = Info('Joe', 18)
 
 print(s.name) # accessible​
-print(s.get_address())
-print(info.get_age())
-print(info.get_name())
+print(s.get_address()) # get private attribute
+print(info.get_age()) # get protected attribute
+print(info.get_name()) # get public attribute
 print(s.get_grade()) # correct way​
