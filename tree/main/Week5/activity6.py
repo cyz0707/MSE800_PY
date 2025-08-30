@@ -12,6 +12,7 @@ class Student:
     def get_grade(self):
         return self.__grade
     
+    # activity 6.2
     def update_grade(self, grade):
         self.__grade = grade
 
@@ -34,6 +35,6 @@ print(info.get_age()) # get protected attribute
 print(info.get_name()) # get public attribute
 print(s.get_grade()) # correct way​
 
+# activity 6.2
 s.update_grade('A+')
-
 print(s.get_grade())
