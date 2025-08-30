@@ -11,6 +11,9 @@ class Student:
 
     def get_grade(self):
         return self.__grade
+    
+    def update_grade(self, grade):
+        self.__grade = grade
 
 class Info(Student):
     def __init__(self, name, age):
@@ -30,3 +33,7 @@ print(s.get_address()) # get private attribute
 print(info.get_age()) # get protected attribute
 print(info.get_name()) # get public attribute
 print(s.get_grade()) # correct way​
+
+s.update_grade('A+')
+
+print(s.get_grade())
