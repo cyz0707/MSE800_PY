@@ -9,18 +9,16 @@ def add_user(user_name, password):
         cursor.execute("SELECT * FROM users WHERE user_name = ?", (user_name,))
         results = cursor.fetchall()
         if results:
-            print('--------')
-            print('Username already exists')
-            print('--------')
+            print('\nUsername already exists')
             return
         else:
             cursor.execute("INSERT INTO users (user_name, password) VALUES (?, ?)", (user_name, password))
             conn.commit()
-            print(" user added successfully.")
+            print("\nuser added successfully.")
             conn.close()
 
     except sqlite3.Error as e:
-        print(f"fail: {e}")
+        print(f"\nfail: {e}")
         return False
     
     finally:
@@ -31,7 +29,7 @@ def delete_user_by_id(id):
     cursor = conn.cursor()
     cursor.execute("DELETE FROM users WHERE user_id = ?", (id,))
     conn.commit()
-    print(f"user deleted successfully.")
+    print(f"\nuser deleted successfully.")
     conn.close()
 
 def login_user(user_name, password):
@@ -56,12 +54,12 @@ def view_users():
         cursor.execute("SELECT * FROM users")
         results = cursor.fetchall()
         if not results:
-            print("No Records")
+            print("\nNo Records")
             return
         print_table_data(results)
         
     except sqlite3.Error as e:
-        print(f"fail: {e}")
+        print(f"\nfail: {e}")
     
     finally:
         conn.close()
@@ -85,6 +83,7 @@ def print_table_data(data):
     
     # print column name
     header = " | ".join(col.ljust(col_widths[col]) for col in columns)
+    print("\n")
     print(header)
     print("-" * len(header))
     

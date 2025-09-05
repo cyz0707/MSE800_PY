@@ -28,7 +28,8 @@ def create_table():
     # create car table 
     # is_available: 0 unavailable, 1 available
     # min_rent_period: default 1 day
-    # max_rent_period: default 100 day
+    # max_rent_period: default 100 days
+    # price: default 100 / per day
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS car (
             car_id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -37,7 +38,8 @@ def create_table():
             mileage INTEGER NOT NULL,
             is_available INTEGER DEFAULT 1 CHECK (is_available IN (0, 1)),
             min_rent_period INTEGER DEFAULT 1,
-            max_rent_period INTEGER DEFAULT 100
+            max_rent_period INTEGER DEFAULT 100,
+            price INTEGER DEFAULT 100
         )
     ''')
 
