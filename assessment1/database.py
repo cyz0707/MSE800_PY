@@ -12,8 +12,7 @@ def create_table():
         CREATE TABLE IF NOT EXISTS users (
             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_name TEXT PRIMARY KEY,
-            password CHAR(50) NOT NULL,
-            des TEXT
+            password CHAR(50) NOT NULL
         )
     ''')
 
@@ -22,8 +21,7 @@ def create_table():
         CREATE TABLE IF NOT EXISTS admin (
             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
             user_name TEXT PRIMARY KEY,
-            password CHAR(50) NOT NULL,
-            des TEXT
+            password CHAR(50) NOT NULL
         )
     ''')
 

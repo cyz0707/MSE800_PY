@@ -1,5 +1,5 @@
 from database import create_table
-from user_manager import add_user, login_user, admin_login, view_users
+from user_manager import add_user, login_user, admin_login, view_users, delete_user_by_id
 from car_manager import view_cars, add_car, delete_car, update_car
 
 def menu():
@@ -7,7 +7,6 @@ def menu():
     print('1. Log in')
     print('2. Sign up')
     print('3. Admin login')
-    print('4. Show user list')
 
 def main():
     while True:
@@ -35,10 +34,6 @@ def main():
                 return False
             else:
                 print('Wrong user name or password ')
-        elif choice == '4':
-            list = view_users()
-            for i in list:
-                print(i)
         else:
             print('Invalid choice, try again.')
 
@@ -55,7 +50,9 @@ def admin_menu(name):
     print('2. Add a car')
     print('3. Delete a car')
     print('4. Update cars details')
-    print('5. Return to homepage')
+    print('5. View users')
+    print('6. Delete users')
+    print('7. Return to homepage')
 
 def jump_to_admin_interface(name):
     while True:
@@ -84,10 +81,14 @@ def jump_to_admin_interface(name):
             max_rent_period = int(input('Enter maximum rent period (days): '))
             update_car(id, make, year, mileage, is_available, min_rent_period, max_rent_period)
         elif choice == '5':
+            view_users()
+        elif choice == '6':
+            user_id = int(input('Enter the id of the user you want to delete: '))
+            delete_user_by_id(user_id)
+        elif choice == '7':
             main()
         else:
             print('Invalid choice, try again.')
-
 
 if __name__ == '__main__':
     create_table()

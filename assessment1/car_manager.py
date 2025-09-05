@@ -1,5 +1,6 @@
 from database import create_connection
 import sqlite3
+from user_manager import print_table_data
 
 def view_cars():
     conn = create_connection()
@@ -12,24 +13,8 @@ def view_cars():
         if not results:
             print("No Records")
             return
-        
-        # get column names
-        columns = list(results[0].keys())
-        
-        # calculate max width
-        col_widths = {}
-        for col in columns:
-            col_widths[col] = max(len(col), max(len(str(row[col])) for row in results))
-        
-        # print column name
-        header = " | ".join(col.ljust(col_widths[col]) for col in columns)
-        print(header)
-        print("-" * len(header))
-        
-        # print data row
-        for row in results:
-            data_row = " | ".join(str(row[col]).ljust(col_widths[col]) for col in columns)
-            print(data_row)
+        print('car result', results)
+        print_table_data(results)
         
     except sqlite3.Error as e:
         print(f"fail: {e}")
