@@ -1,10 +1,9 @@
 from database import create_connection
-import sqlite3
 
 def add_user(user_name, password):
     conn = create_connection()
     cursor = conn.cursor()
-    cursor.execute('SELECT * from users WHERE user_name = ?', (user_name,))
+    cursor.execute("SELECT * FROM users WHERE user_name = ?", (user_name,))
     rows = cursor.fetchall()
     if len(rows):
         print('--------')
@@ -19,12 +18,16 @@ def add_user(user_name, password):
 def login_user(user_name, password):
     conn = create_connection()
     cursor = conn.cursor()
-    cursor.execute('SELECT * from users WHERE user_name = ? AND password = ?', (user_name, password))
+    cursor.execute("SELECT * FROM users WHERE user_name = ? AND password = ?", (user_name, password))
     rows = cursor.fetchall()
     return len(rows) > 0
 
 def admin_login(user_name, password):
-    return
+    conn = create_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM admin WHERE user_name = ? AND password = ?", (user_name, password))
+    rows = cursor.fetchall()
+    return len(rows) > 0
 
 def view_users():
     conn = create_connection()
