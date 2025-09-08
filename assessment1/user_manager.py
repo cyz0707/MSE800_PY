@@ -38,6 +38,7 @@ def login_user(user_name, password):
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM users WHERE user_name = ? AND password = ?", (user_name, password))
     rows = cursor.fetchall()
+    print('rows', rows, rows[0][0], rows[0][1])
     if rows:
         result = {
             "success": True,

@@ -62,6 +62,18 @@ def booking_car(user_id, user_name, car_id, start_date, end_date, special_reques
     if total_days <= 0:
         print("\nEnd date must be after start date.")
         return
+    
+    # check car availability
+    check_availability_query = '''SELECT COUNT(*) FROM bookings 
+        WHERE car_id = ? AND booking_status IN ('pending', 'confirmed') 
+        AND (start_date <= ? AND end_date >= ?)'''
+    cursor.execute(check_availability_query, (car_id, end, start))
+    (count,) = cursor.fetchone()
+    if count > 0:
+        print("\nCar is not available for the selected dates.")
+        return
+    
+    # get car details
     cursor.execute("SELECT price, min_rent_period, max_rent_period FROM car WHERE car_id = ?", (car_id,))
     car = cursor.fetchone()
     if not car:
@@ -73,29 +85,30 @@ def booking_car(user_id, user_name, car_id, start_date, end_date, special_reques
         return
     total_amount = total_days * price
     print(f"\nTotal amount for {total_days} days: ${total_amount}")
+
+    # insert booking record
     cursor.execute('''
         INSERT INTO bookings (user_id, customer_name, car_id, start_date, end_date, total_days, daily_rate, total_amount, special_requests)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ''', (car_id, user_id, user_name, start, end, total_days, price, total_amount, special_requests))
+    ''', (user_id, user_name, car_id, start, end, total_days, price, total_amount, special_requests))
     conn.commit()  
     return
 
-# def view_booking_datail(user_id):
-#     print('user_id', user_id)
-#     conn = create_connection()
-#     conn.row_factory = sqlite3.Row
-#     cursor = conn.cursor()
-#     try:
-#         cursor.execute("SELECT * FROM bookings WHERE user_id = ?", (user_id,))
-#         results = cursor.fetchall()
+def view_booking_datail(user_id):
+    conn = create_connection()
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+    try:
+        cursor.execute("SELECT customer_name, car_id, start_date, end_date, total_days, daily_rate, total_amount, booking_status, special_requests FROM bookings WHERE user_id = ?", (user_id,))
+        results = cursor.fetchall()
         
-#         if not results:
-#             print("\nNo Records")
-#             return
-#         print_table_data(results)
+        if not results:
+            print("\nNo Records")
+            return
+        print_table_data(results)
         
-#     except sqlite3.Error as e:
-#         print(f"fail: {e}")
+    except sqlite3.Error as e:
+        print(f"fail: {e}")
     
-#     finally:
-#         conn.close()
+    finally:
+        conn.close()
