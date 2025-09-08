@@ -1,6 +1,7 @@
 from database import create_table
 from user_manager import add_user, login_user, admin_login, view_users, delete_user_by_id
-from car_manager import view_cars, add_car, delete_car, update_car, booking_car
+from car_manager import view_cars, add_car, delete_car, update_car, booking_car, view_booking_datail
+from datetime import datetime, timedelta
 
 def menu():
     print("\n==== YB Car Rental ====")
@@ -15,9 +16,11 @@ def main():
         if choice == '1':
             name = input('Enter user name: ')
             password = input('Enter password: ')
-            if login_user(name, password):
+            user_info = login_user(name, password)
+            print('user_info', user_info['user_id'])
+            if user_info['user_id'] is not None:
                 print('\nLog in successfully')
-                jump_to_user_interface(name)
+                jump_to_user_interface(user_info)
                 return False
             else:
                 print('\nWrong user name or password ')
@@ -42,19 +45,23 @@ def customer_menu(name):
     print(f"\n==== Welcome {name} ====")
     print('1. View available cars')
     print('2. Book a car')
-    print('View My Detail')
+    print('3. View my booking details')
 
-def jump_to_user_interface(name):
+def jump_to_user_interface(user_info):
     while True:
-        customer_menu(name)
+        customer_menu(user_info['user_name'])
         choice = input('Select an option: ')
         if choice == '1':
             view_cars(1)
-        if choice == '2':
+        elif choice == '2':
+            view_cars(1)
             car_id = int(input('Input car id: '))
-            start_date = input('Rental start date: ')
-            end_date = input('Rental end date: ')
-            booking_car(car_id, start_date, end_date)
+            start_date = input('Rental start date[YYYY-MM-DD]: ')
+            end_date = input('Rental end date[ YYYY-MM-DD]: ')
+            special_requests = input('Any special requests: ')
+            booking_car(user_info['user_id'], user_info['user_name'], car_id, start_date, end_date, special_requests)
+        elif choice == '3':
+            view_booking_datail(user_info['user_id'])
         else:
             print('Invalid choice, try again.')
 

@@ -1,5 +1,6 @@
 from database import create_connection
 import sqlite3
+import json
 
 def add_user(user_name, password):
     conn = create_connection()
@@ -37,7 +38,21 @@ def login_user(user_name, password):
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM users WHERE user_name = ? AND password = ?", (user_name, password))
     rows = cursor.fetchall()
-    return len(rows) > 0
+    if rows:
+        result = {
+            "success": True,
+            "user_id": rows[0][0], 
+            "user_name": rows[0][1]
+        }
+    else:
+        result = {
+            "success": False,
+            "user_id": None,
+            "user_name": None
+        }
+    conn.close()
+    print('login_user 返回:', result)
+    return result
 
 def admin_login(user_name, password):
     conn = create_connection()
