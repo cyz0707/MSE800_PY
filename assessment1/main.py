@@ -1,6 +1,6 @@
 from database import create_table
 from user_manager import add_user, login_user, admin_login, view_users, delete_user_by_id
-from car_manager import view_cars, add_car, delete_car, update_car, booking_car, view_booking_datail
+from car_manager import view_cars, add_car, delete_car, update_car, booking_car, view_my_booking_datail, view_all_booking_datail, manage_booking, view_pending_booking_datail
 from datetime import datetime, timedelta
 
 def menu():
@@ -61,7 +61,7 @@ def jump_to_user_interface(user_info):
             special_requests = input('Any special requests: ')
             booking_car(user_info['user_id'], user_info['user_name'], car_id, start_date, end_date, special_requests)
         elif choice == '3':
-            view_booking_datail(user_info['user_id'])
+            view_my_booking_datail(user_info['user_id'])
         else:
             print('Invalid choice, try again.')
 
@@ -74,7 +74,9 @@ def admin_menu(name):
     print('4. Update cars details')
     print('5. View users')
     print('6. Delete users')
-    print('7. Return to homepage')
+    print('7. View all bookings')
+    print('8. Manage bookings')
+    print('9. Return to homepage')
 
 def jump_to_admin_interface(name):
     while True:
@@ -110,6 +112,14 @@ def jump_to_admin_interface(name):
             user_id = int(input('Enter the id of the user you want to delete: '))
             delete_user_by_id(user_id)
         elif choice == '7':
+            view_all_booking_datail()
+        elif choice == '8':
+            view_pending_booking_datail()
+            booking_id = int(input('Enter booking id to manage: '))
+            status = int(input("Enter new status (0: pending, 1: confirmed, 2: cancelled): "))
+            status_map = {0: 'pending', 1: 'confirmed', 2: 'cancelled'}
+            manage_booking(booking_id, status_map.get(status, 0))
+        elif choice == '9':
             main()
             return False
         else:
