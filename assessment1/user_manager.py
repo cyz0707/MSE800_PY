@@ -1,6 +1,21 @@
 from database import create_connection
 import sqlite3
-import json
+import bcrypt
+
+def hash_password(password):
+    """Hash a password with bcrypt"""
+    # Convert password to bytes
+    password_bytes = password.encode('utf-8')
+    # Generate salt and hash password
+    salt = bcrypt.gensalt()
+    hashed = bcrypt.hashpw(password_bytes, salt)
+    return hashed
+
+def verify_password(password, hashed_password):
+    """Verify a password against its hash"""
+    password_bytes = password.encode('utf-8')
+    return bcrypt.checkpw(password_bytes, hashed_password)
+
 
 def add_user(user_name, password):
     conn = create_connection()
@@ -13,7 +28,8 @@ def add_user(user_name, password):
             print('\nUsername already exists')
             return
         else:
-            cursor.execute("INSERT INTO users (user_name, password) VALUES (?, ?)", (user_name, password))
+            hashed_password = hash_password(password)
+            cursor.execute("INSERT INTO users (user_name, password) VALUES (?, ?)", (user_name, hashed_password))
             conn.commit()
             print("\nuser added successfully.")
             conn.close()
@@ -36,21 +52,22 @@ def delete_user_by_id(id):
 def login_user(user_name, password):
     conn = create_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM users WHERE user_name = ? AND password = ?", (user_name, password))
+    cursor.execute("SELECT * FROM users WHERE user_name = ?", (user_name,))
     rows = cursor.fetchall()
-    print('rows', rows, rows[0][0], rows[0][1])
     if rows:
-        result = {
-            "success": True,
-            "user_id": rows[0][0], 
-            "user_name": rows[0][1]
-        }
-    else:
-        result = {
-            "success": False,
-            "user_id": None,
-            "user_name": None
-        }
+        stored_hash = rows[0][2]
+        if verify_password(password, stored_hash):
+            result = {
+                "success": True,
+                "user_id": rows[0][0], 
+                "user_name": rows[0][1]
+            }
+        else:
+            result = {
+                "success": False,
+                "user_id": None,
+                "user_name": None
+            }
     conn.close()
     print('login_user 返回:', result)
     return result
