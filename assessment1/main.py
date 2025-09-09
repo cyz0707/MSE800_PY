@@ -1,7 +1,7 @@
 from database import create_table
 from user_manager import add_user, login_user, admin_login, view_users, delete_user_by_id
-from car_manager import view_cars, add_car, delete_car, update_car, booking_car, view_my_booking_datail, view_all_booking_datail, manage_booking, view_pending_booking_datail
-from datetime import datetime, timedelta
+from car_manager import view_cars, add_car, delete_car, update_car
+from booking_manager import booking_car, view_my_booking_datail, view_all_booking_datail, manage_booking, view_pending_booking_datail
 
 def menu():
     print("\n==== YB Car Rental ====")
