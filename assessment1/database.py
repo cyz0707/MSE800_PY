@@ -70,7 +70,7 @@ def create_table():
             daily_rate REAL NOT NULL,
             total_amount REAL NOT NULL,
             booking_status TEXT DEFAULT 'pending' CHECK (
-                booking_status IN ('pending', 'confirmed', 'cancelled')
+                booking_status IN ('pending', 'confirmed', 'cancelled', 'completed')
             ),
             special_requests TEXT,
             created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
