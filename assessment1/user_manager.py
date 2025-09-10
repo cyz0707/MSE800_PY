@@ -54,23 +54,32 @@ def login_user(user_name, password):
     cursor = conn.cursor()
     cursor.execute("SELECT * FROM users WHERE user_name = ?", (user_name,))
     rows = cursor.fetchall()
-    if rows:
+    try:
         stored_hash = rows[0][2]
-        if verify_password(password, stored_hash):
-            result = {
-                "success": True,
-                "user_id": rows[0][0], 
-                "user_name": rows[0][1]
-            }
-        else:
-            result = {
-                "success": False,
-                "user_id": None,
-                "user_name": None
-            }
-    conn.close()
-    print('login_user 返回:', result)
-    return result
+        if rows:
+            stored_hash = rows[0][2]
+            if verify_password(password, stored_hash):
+                result = {
+                    "success": True,
+                    "user_id": rows[0][0], 
+                    "user_name": rows[0][1]
+                }
+            else:
+                result = {
+                    "success": False,
+                    "user_id": None,
+                    "user_name": None
+                }
+        conn.close()
+        print('login_user return:', result)
+        return result
+    except IndexError:
+        print("\nUsername does not exist")
+        return {
+            "success": False,
+            "user_id": None,
+            "user_name": None
+        }
 
 def admin_login(user_name, password):
     conn = create_connection()
