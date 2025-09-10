@@ -46,6 +46,7 @@ def customer_menu(name):
     print('1. View available cars')
     print('2. Book a car')
     print('3. View my booking details')
+    print('4. Return to homepage')
 
 def jump_to_user_interface(user_info):
     while True:
@@ -68,6 +69,9 @@ def jump_to_user_interface(user_info):
             Booking.booking_car(user_info['user_id'], user_info['user_name'], car_id, start_date, end_date, special_requests)
         elif choice == '3':
             Booking.view_my_booking_datail(user_info['user_id'])
+        elif choice == '4':
+            main()
+            return False
         else:
             print('Invalid choice, try again.')
 
