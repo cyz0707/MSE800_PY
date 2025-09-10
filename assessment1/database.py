@@ -11,7 +11,7 @@ def create_table():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS users (
             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_name TEXT PRIMARY KEY,
+            user_name TEXT unique NOT NULL,
             password CHAR(50) NOT NULL
         )
     ''')
@@ -20,7 +20,7 @@ def create_table():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS admin (
             user_id INTEGER PRIMARY KEY AUTOINCREMENT,
-            user_name TEXT PRIMARY KEY,
+            user_name TEXT unique NOT NULL,
             password CHAR(50) NOT NULL
         )
     ''')
@@ -79,14 +79,14 @@ def create_table():
         )
     ''')
 
-    ## add a default admin
-    # cursor.execute('SELECT * FROM admin WHERE user_name = admin')
-    # rows = cursor.fetchall()
-    # if len(rows) == 0:
-    #     cursor.execute('''
-    #         INSERT INTO admin (user_name, password)
-    #         VALUES ('admin', '123456');           
-    #     ''')
+    # add a default admin
+    cursor.execute("SELECT * FROM admin WHERE user_name = 'admin'")
+    rows = cursor.fetchall()
+    if len(rows) == 0:
+        cursor.execute('''
+            INSERT INTO admin (user_name, password)
+            VALUES ('admin', '123456');           
+        ''')
 
     conn.commit()
     conn.close()
