@@ -42,20 +42,6 @@ def create_table():
             price INTEGER DEFAULT 100
         )
     ''')
-
-    # # create customers table
-    # cursor.execute('''
-    #     CREATE TABLE IF NOT EXISTS customers (
-    #         customer_id INTEGER PRIMARY KEY AUTOINCREMENT,
-    #         first_name TEXT NOT NULL,
-    #         last_name TEXT NOT NULL,
-    #         email TEXT UNIQUE NOT NULL,
-    #         phone TEXT NOT NULL,
-    #         license_number TEXT UNIQUE NOT NULL,
-    #         date_of_birth DATE NOT NULL,
-    #         created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-    #     )
-    # ''')
     
     # create bookings table
     cursor.execute('''
