@@ -7,6 +7,7 @@ class bcolors:
     OKGREEN = '\033[92m'
     WARNING = '\033[93m'
     FAIL = '\033[91m'
+    ENDC = '\033[0m'
 
 # colored print messages
 WARNING_MSG = bcolors.WARNING + "\nInvalid input. Please try again."  + bcolors.ENDC
@@ -160,7 +161,7 @@ def jump_to_admin_interface(name):
             Booking.view_all_booking_datail()
         elif choice == '8':
             try:
-                Booking.view_pending_booking_datail()
+                Booking.view_all_booking_datail()
                 booking_id = int(input('Enter booking id to manage: '))
                 status = int(input("Enter new status (0: pending, 1: confirmed, 2: cancelled, 3: completed): "))
                 status_map = {0: 'pending', 1: 'confirmed', 2: 'cancelled', 3: 'completed'}

@@ -2,46 +2,57 @@ from database import create_connection
 import sqlite3
 import bcrypt
 
+class bcolors:
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+
+class Connection:
+    def __init__(self):
+        self.conn = create_connection()
+        self.conn.row_factory = sqlite3.Row
+        self.cursor = self.conn.cursor()
+
 class User:
     def __init__(self, user_id, user_name):
         self.user_id = user_id
         self.user_name = user_name
 
     def add_user(user_name, password):
-        conn = create_connection()
-        cursor = conn.cursor()
+        conn = Connection()
+        cursor = conn.cursor
 
         try:
             cursor.execute("SELECT * FROM users WHERE user_name = ?", (user_name,))
             results = cursor.fetchall()
             if results:
-                print('\nUsername already exists')
+                print(bcolors.WARNING + '\nUsername already exists' + bcolors.ENDC)
                 return
             else:
                 hashed_password = hash_password(password)
                 cursor.execute("INSERT INTO users (user_name, password) VALUES (?, ?)", (user_name, hashed_password))
-                conn.commit()
-                print("\nuser added successfully.")
-                conn.close()
+                conn.conn.commit()
+                print(bcolors.OKGREEN + "\nuser added successfully." + bcolors.ENDC)
 
         except sqlite3.Error as e:
             print(f"\nfail: {e}")
             return False
         
         finally:
-            conn.close()
+            conn.conn.close()
 
     def delete_user_by_id(id):
-        conn = create_connection()
-        cursor = conn.cursor()
+        conn = Connection()
+        cursor = conn.cursor
         cursor.execute("DELETE FROM users WHERE user_id = ?", (id,))
-        conn.commit()
-        print(f"\nuser deleted successfully.")
-        conn.close()
+        conn.conn.commit()
+        print(bcolors.OKGREEN + f"\nuser deleted successfully." + bcolors.ENDC)
+        conn.conn.close()
 
     def login_user(user_name, password):
-        conn = create_connection()
-        cursor = conn.cursor()
+        conn = Connection()
+        cursor = conn.cursor
         cursor.execute("SELECT * FROM users WHERE user_name = ?", (user_name,))
         rows = cursor.fetchall()
         try:
@@ -60,33 +71,32 @@ class User:
                         "user_id": None,
                         "user_name": None
                     }
-            conn.close()
-            print('login_user return:', result)
             return result
         except IndexError:
-            print("\nUsername does not exist")
+            print(bcolors.WARNING + "\nUsername does not exist" + bcolors.ENDC)
             return {
                 "success": False,
                 "user_id": None,
                 "user_name": None
             }
+        finally:
+            conn.conn.close()
 
     def admin_login(user_name, password):
-        conn = create_connection()
-        cursor = conn.cursor()
+        conn = Connection()
+        cursor = conn.cursor
         cursor.execute("SELECT * FROM admin WHERE user_name = ? AND password = ?", (user_name, password))
         rows = cursor.fetchall()
         return len(rows) > 0
 
     def view_users():
-        conn = create_connection()
-        conn.row_factory = sqlite3.Row
-        cursor = conn.cursor()
+        conn = Connection()
+        cursor = conn.cursor
         try:
             cursor.execute("SELECT * FROM users")
             results = cursor.fetchall()
             if not results:
-                print("\nNo Records")
+                print(bcolors.WARNING+ "\nNo Records" + bcolors.ENDC)
                 return
             print_table_data(results)
             
@@ -94,14 +104,14 @@ class User:
             print(f"\nfail: {e}")
         
         finally:
-            conn.close()
+            conn.conn.close()
 
     def view_admin_list():
-        conn = create_connection()
-        cursor = conn.cursor()
+        conn = Connection()
+        cursor = conn.cursor
         cursor.execute("SELECT * FROM admin")
         rows = cursor.fetchall()
-        conn.close()
+        conn.conn.close()
         return rows
 
 def hash_password(password):
@@ -119,6 +129,9 @@ def verify_password(password, hashed_password):
     return bcrypt.checkpw(password_bytes, hashed_password)
 
 def print_table_data(data):
+    if not len(data):
+        print(bcolors.WARNING+ "\nNo Records" + bcolors.ENDC)
+        return
     # get column names
     columns = list(data[0].keys())
     
