@@ -3,11 +3,9 @@ class Person():
         self.name = name
         self.address = address
         self.age = age
-    
     def greet(self):
         print("Hello " + self.name)
         
-    
 class Academic(Person):
     def __init__(self, name, address, age, salary):
         super().__init__(name, address, age)
