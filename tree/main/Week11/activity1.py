@@ -24,6 +24,7 @@ class TestMathOperations(unittest.TestCase):
         self.assertEqual(minus(-1, 1), -2)
         self.assertEqual(multiply(-1, -1), 1)
         self.assertEqual(divide(9, 3), 3)
+        self.assertEqual(divide(9, 0), 3)
         self.assertEqual(modulus(11, 3), 2)
 
 if __name__ == '__main__':
